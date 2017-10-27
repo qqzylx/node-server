@@ -1,0 +1,73 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: Online Book Store
+paths:
+  /book_store/booklist:
+    get:
+      tags:
+        - booklist
+      description: Get book list
+      produces:
+        - application/json
+      parameters:
+        - name: name
+          in: query
+          description: Book name to query
+          type: string
+        - name: author
+          in: query
+          description: Book author to query
+          type: string
+        - name: publisher
+          in: query
+          description: Book publisher to query
+          type: string
+      responses:
+        200:
+          description: Get book list sucessfully
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Book'
+        500:
+          description: Get book list internal error
+  /book_store/book:
+    get:
+      tags:
+        - book
+      description: Get book
+      parameters:
+        - name: id
+          in: query
+          type: integer
+          required: true
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Get book successfully
+          schema:
+            $ref: '#/definitions/Book'
+        500:
+          description: Get book internal error
+
+definitions:
+  Book:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int32
+      name:
+        type: string
+      author:
+        type: string
+      publisher:
+        type: string
+      price:
+        type: number
+        format: float
+      inventory:
+        type: integer
+        format: int32
